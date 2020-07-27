@@ -1,3 +1,5 @@
+const request = require('request');
+
 'use strict';
 
 // Imports dependencies and set up http server 
