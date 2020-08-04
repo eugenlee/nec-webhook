@@ -121,6 +121,10 @@ function handleMessage(sender_psid, received_message) {
       }
     }
   }
+  else if (message.nlp && message.nlp.entities && message.nlp.entities.greetings && message.nlp.entities.greetings.find(g => g.confidence > 0.8 && g.value === 'true')){
+    handlePostback(sender_psid, {payload: 'GREETING'});
+    return;
+  }
   
   // Sends the response message
   callSendAPI(sender_psid, response);  
@@ -146,12 +150,12 @@ function handlePostback(sender_psid, received_postback) {
       console.log('Cannot differentiate the payload type');
   }
 
-  // // Set the response based on the postback payload
-  // if (payload === 'yes') {
-  //   response = { "text": "Thanks!" }
-  // } else if (payload === 'no') {
-  //   response = { "text": "Oops, try sending another image." }
-  // }
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { "text": "Thanks!" }
+  } else if (payload === 'no') {
+    response = { "text": "Oops, try sending another image." }
+  }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
     
