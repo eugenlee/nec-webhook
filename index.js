@@ -83,12 +83,19 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
   let response;
+  var payload = 'DEFAULT';
 
-  var payload = received_message.quick_reply.payload;
+  if (received_message.quick_reply.payload){
+    payload = received_message.quick_reply.payload;
+  }
+  console.log(payload)
   // Check if the message contains text
 
   // FIRST BRANCH: website tabs
-  if (payload === 'WEBSITE') {
+  if (payload === 'DEFAULT'){
+      response = { "text": "Jason will be with you shortly!" }
+  }
+  else if (payload === 'WEBSITE') {
     response = {
       "text": "Which site would you like to view?",
       "quick_replies":[
@@ -208,10 +215,6 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-  }
-  else {
-    response = { "text": "Jason will be with you shortly!" }
-
   }
 
   // Sends the response message
