@@ -121,7 +121,7 @@ function handleMessage(sender_psid, received_message) {
   }
 
   // SECOND BRANCH: travels
-  else if (payload === 'TRAVELS') {
+  if (payload === 'TRAVELS') {
     response = {
       "type": "web_url",
       "url": "https://www.neverendingcycle.org/travels.html",
