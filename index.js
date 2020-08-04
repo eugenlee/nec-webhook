@@ -83,134 +83,135 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
   let response;
-  if (received_message.text) {
-    response = { "text": "Jason will be with you shortly!" }
-  }
+
+  var paid = received_message.quick_reply.payload;
+  // Check if the message contains text
 
   // FIRST BRANCH: website tabs
+  if (paid === 'WEBSITE') {
+    response = {
+      "text": "Which site would you like to view?",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Travels",
+          "payload": 'TRAVELS'
+        },
+        {
+          "content_type":"text",
+          "title":"Guides",
+          "payload": 'GUIDES'
+        },
+        {
+          "content_type":"text",
+          "title":"Services",
+          "payload": 'SERVICES'
+        },
+        {
+          "content_type":"text",
+          "title":"About Me",
+          "payload": 'ABOUT'
+        }
+      ]
+    }  
+  }
+  // talk to jason 
+  else if (paid === 'TALK') {
+    response = { "text": "Jason will be with you shortly!" }
+  }
+  // SECOND BRANCH: travels
+  else if (paid === 'TRAVELS') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Check out my recent travels!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/travels.html",
+              "title":"Travels"
+            }
+          ]
+        }
+      }
+    }
+  }
+  // guides
+  else if (paid === 'GUIDES') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Check out my guides!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/guides.html",
+              "title":"Guides"
+            }, 
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/",
+              "title":"Coming Soon!"
+            }
+          ]
+        }
+      }
+    }
+  }
+  // services
+  else if (paid === 'SERVICES') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Let me plan your next trip!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/travel-consultant.html",
+              "title":"Travel Consultant"
+            }
+          ]
+        }
+      }
+    }
+  }  // about me
+  else if (paid === 'ABOUT') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"My story!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/about-me.html",
+              "title":"About me"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.instagram.com/jasontsao/",
+              "title":"IG"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.linkedin.com/in/jasontsao58/",
+              "title":"LinkedIn"
+            }
+          ]
+        }
+      }
+    }
+  }
   else {
-    var payload = received_message.quick_reply.payload;
-    if (payload === 'WEBSITE') {
-      response = {
-        "text": "Which site would you like to view?",
-        "quick_replies":[
-          {
-            "content_type":"text",
-            "title":"Travels",
-            "payload": 'TRAVELS'
-          },
-          {
-            "content_type":"text",
-            "title":"Guides",
-            "payload": 'GUIDES'
-          },
-          {
-            "content_type":"text",
-            "title":"Services",
-            "payload": 'SERVICES'
-          },
-          {
-            "content_type":"text",
-            "title":"About Me",
-            "payload": 'ABOUT'
-          }
-        ]
-      }  
-    }
-    // talk to jason 
-    else if (payload === 'TALK') {
-      response = { "text": "Jason will be with you shortly!" }
-    }
-    // SECOND BRANCH: travels
-    else if (payload === 'TRAVELS') {
-      response = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"Check out my recent travels!",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"https://www.neverendingcycle.org/travels.html",
-                "title":"Travels"
-              }
-            ]
-          }
-        }
-      }
-    }
-    // guides
-    else if (payload === 'GUIDES') {
-      response = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"Check out my guides!",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"https://www.neverendingcycle.org/guides.html",
-                "title":"Guides"
-              }, 
-              {
-                "type":"web_url",
-                "url":"https://www.neverendingcycle.org/",
-                "title":"Coming Soon!"
-              }
-            ]
-          }
-        }
-      }
-    }
-    // services
-    else if (payload === 'SERVICES') {
-      response = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"Let me plan your next trip!",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"https://www.neverendingcycle.org/travel-consultant.html",
-                "title":"Travel Consultant"
-              }
-            ]
-          }
-        }
-      }
-    }  // about me
-    else if (payload === 'ABOUT') {
-      response = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"My story!",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"https://www.neverendingcycle.org/about-me.html",
-                "title":"About me"
-              },
-              {
-                "type":"web_url",
-                "url":"https://www.instagram.com/jasontsao/",
-                "title":"IG"
-              },
-              {
-                "type":"web_url",
-                "url":"https://www.linkedin.com/in/jasontsao58/",
-                "title":"LinkedIn"
-              }
-            ]
-          }
-        }
-      }
-    }
+    response = { "text": "Jason will be with you shortly!" }
+
   }
 
   // Sends the response message
