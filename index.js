@@ -34,10 +34,10 @@ app.post('/webhook', (req, res) => {
         
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
-      if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
-      } else if (webhook_event.postback) {
-        handlePostback(sender_psid, webhook_event.postback);        
+      if (webhook_event.postback) {
+        handlePostback(sender_psid, webhook_event.postback);
+      } else if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message);        
       }
         
     });
@@ -84,11 +84,11 @@ function handleMessage(sender_psid, received_message) {
 
   let response;
 
-  var paid = received_message.quick_reply.payload;
+  var payload = received_message.quick_reply.payload;
   // Check if the message contains text
 
   // FIRST BRANCH: website tabs
-  if (paid === 'WEBSITE') {
+  if (payload === 'WEBSITE') {
     response = {
       "text": "Which site would you like to view?",
       "quick_replies":[
@@ -116,7 +116,7 @@ function handleMessage(sender_psid, received_message) {
     }  
   }
   // talk to jason 
-  else if (paid === 'TALK') {
+  else if (payload === 'TALK') {
     response = { "text": "Jason will be with you shortly!" }
   }
   // SECOND BRANCH: travels
@@ -139,7 +139,7 @@ function handleMessage(sender_psid, received_message) {
     }
   }
   // guides
-  else if (paid === 'GUIDES') {
+  else if (payload === 'GUIDES') {
     response = {
       "attachment":{
         "type":"template",
@@ -163,7 +163,7 @@ function handleMessage(sender_psid, received_message) {
     }
   }
   // services
-  else if (paid === 'SERVICES') {
+  else if (payload === 'SERVICES') {
     response = {
       "attachment":{
         "type":"template",
@@ -181,7 +181,7 @@ function handleMessage(sender_psid, received_message) {
       }
     }
   }  // about me
-  else if (paid === 'ABOUT') {
+  else if (payload === 'ABOUT') {
     response = {
       "attachment":{
         "type":"template",
