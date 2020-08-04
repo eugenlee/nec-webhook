@@ -121,6 +121,10 @@ function handleMessage(sender_psid, received_message) {
       }
     }
   }
+  else if (message.nlp && message.nlp.entities && message.nlp.entities.greetings && message.nlp.entities.greetings.find(g => g.confidence > 0.8 && g.value === 'true')){
+    handlePostback(sender_psid, {payload: 'GREETING'});
+    return;
+  }
   
   // Sends the response message
   callSendAPI(sender_psid, response);  
@@ -135,36 +139,23 @@ function handlePostback(sender_psid, received_postback) {
   // Get the payload for the postback
   let payload = received_postback.payload;
 
-  // switch (payload){
-  //   case 'GREETING':
-  //     handleGreetingPostback(sender_psid);
-  //     break;
-  //   // case 'START_WEBSITE_GUIDE':
-  //   //   break;
-  //   // case 'START_TALK_JASON':
-  //   //   break;
-  //   default:
-  //     console.log('Cannot differentiate the payload type');
-  // }
+  switch (payload){
+    case 'GREETING':
+      handleGreetingPostback(sender_psid);
+      break;
+    case 'START_WEBSITE_GUIDE':
+      break;
+    case 'START_TALK_JASON':
+    default:
+      console.log('Cannot differentiate the payload type');
+  }
 
   // Set the response based on the postback payload
-  if (payload === 'GREETING') {
-    response = {
-      "text": message,
-      "quick_replies":[
-        {
-          "content_type":"text",
-          "title":"Website Guide",
-          "payload": START_WEBSITE_GUIDE
-        },
-        {
-          "content_type":"text",
-          "title":"Talk to Jason",
-          "payload": START_TALK_JASON
-        }
-      ]
-    };
-
+  if (payload === 'yes') {
+    response = { "text": "Thanks!" }
+  } else if (payload === 'no') {
+    response = { "text": "Oops, try sending another image." }
+  }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
     
