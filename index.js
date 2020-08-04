@@ -144,12 +144,12 @@ function handlePostback(sender_psid, received_postback) {
         {
           "content_type":"text",
           "title":"Browse website",
-          "payload": GUIDES
+          "payload": "GUIDES"
         },
         {
           "content_type":"text",
           "title":"Talk to Jason",
-          "payload": TALK
+          "payload": "TALK"
         }
       ]
     }
