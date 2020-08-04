@@ -85,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
   let response;
   var payload;
 
-  if (received_message.quick_reply.payload) {
+  if (received_message.quick_reply) {
     payload = received_message.quick_reply.payload;
   }
 
@@ -262,7 +262,7 @@ function handlePostback(sender_psid, received_postback) {
   let response;
   var payload;
 
-  if (received_message.quick_reply.payload) {
+  if (received_message.quick_reply) {
     payload = received_message.quick_reply.payload;
   }
 
