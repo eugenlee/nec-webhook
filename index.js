@@ -1,4 +1,5 @@
 const request = require('request');
+const FACEBOOK_GRAPH_API_BASE_URL = "https://graph.facebook.com/v2.6/me/messages";
 
 'use strict';
 
@@ -129,21 +130,70 @@ function handleMessage(sender_psid, received_message) {
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
 
-  let response;
+  // let response;
   
   // Get the payload for the postback
   let payload = received_postback.payload;
 
-  // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+  switch (payload){
+    case GREETING:
+      handleGreetingPostback(sender_psid);
+      break;
+    case START_WEBSITE_GUIDE:
+      break;
+    case START_TALK_JASON:
+    default:
+      console.log('Cannot differentiate the payload type');
   }
+
+  // Set the response based on the postback payload
+  // if (payload === 'yes') {
+  //   response = { "text": "Thanks!" }
+  // } else if (payload === 'no') {
+  //   response = { "text": "Oops, try sending another image." }
+  // }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
     
 }
+
+function handleGreetingPostback(sender_psid){
+  request({
+    url: `${FACEBOOK_GRAPH_API_BASE_URL}${sender_psid}`,
+    qs: {
+      access_token: process.env.PAGE_ACCESS_TOKEN,
+      fields: "first_name"
+    },
+    method: "GET"
+  }, function(error, response, body) {
+    var greeting = "";
+    if (error) {
+      console.log("Error getting user's name: " +  error);
+    } else {
+      var bodyObj = JSON.parse(body);
+      const name = bodyObj.first_name;
+      greeting = "Hi " + name + ", ";
+    }
+    const message = greeting + "I hope you're having a good day! How can I help you today?";
+    const greetingPayload = {
+      "text": message,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Website Guide",
+          "payload": START_WEBSITE_GUIDE
+        },
+        {
+          "content_type":"text",
+          "title":"Talk to Jason",
+          "payload": START_TALK_JASON
+        }
+      ]
+    };
+    callSendAPI(sender_psid, greetingPayload);
+  });
+}
+
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
@@ -158,7 +208,7 @@ function callSendAPI(sender_psid, response) {
   
 // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "uri": FACEBOOK_GRAPH_API_BASE_URL,
     "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
