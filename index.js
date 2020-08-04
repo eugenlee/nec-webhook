@@ -85,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
   let response;
   var payload; 
 
-  if (received_message.quick_reply.payload) {
+  if (received_message.quick_reply.payload != undefined) {
     payload = received_message.quick_reply.payload;
   }
   // Check if the message contains text
