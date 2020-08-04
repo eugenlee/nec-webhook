@@ -246,10 +246,6 @@ function handleMessage(sender_psid, received_message) {
   //     }
   //   }
   // } 
-  else {
-    response = { "text": "Jason will be with you shortly!" }
-
-  }
 
   // Sends the response message
   callSendAPI(sender_psid, response);  
