@@ -83,11 +83,8 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
   let response;
-  var payload; 
 
-  if (received_message.quick_reply.payload != undefined) {
-    payload = received_message.quick_reply.payload;
-  }
+  var payload = received_message.quick_reply.payload;
   // Check if the message contains text
 
   // FIRST BRANCH: website tabs
@@ -213,7 +210,8 @@ function handleMessage(sender_psid, received_message) {
     }
   }
   else {
-    response = { "text": "Jason will be with you shortly!" };
+    response = { "text": "Jason will be with you shortly!" }
+
   }
 
   // Sends the response message
