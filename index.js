@@ -86,7 +86,9 @@ function handleMessage(sender_psid, received_message) {
 
   response = { "text": "Jason will be with you shortly!" }
 
-  var payload = received_message.quick_reply.payload;
+  if (received_message.quick_reply.payload) {
+    var payload = received_message.quick_reply.payload;
+  }
   // Check if the message contains text
 
   // FIRST BRANCH: website tabs
