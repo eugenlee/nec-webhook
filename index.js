@@ -85,35 +85,35 @@ function handleMessage(sender_psid, received_message) {
   let response;
 
   // Check if the message contains text
-  if (message.quick_reply.payload) {
+  if (received_message.quick_reply.payload) {
     const payload = message.quick_reply.payload;
       // First branch with website tabs
       if (payload === 'WEBSITE') {
-      response = {
-        "text": "Which site would you like to view?",
-        "quick_replies":[
-          {
-            "content_type":"text",
-            "title":"Travels",
-            "payload": "TRAVELS"
-          },
-          {
-            "content_type":"text",
-            "title":"Guides",
-            "payload": "GUIDES"
-          },
-          {
-            "content_type":"text",
-            "title":"Services",
-            "payload": "SERVICES"
-          },
-          {
-            "content_type":"text",
-            "title":"About Me",
-            "payload": "ABOUT"
-          }
-        ]
-      }  
+        response = {
+          "text": "Which site would you like to view?",
+          "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Travels",
+              "payload": 'TRAVELS'
+            },
+            {
+              "content_type":"text",
+              "title":"Guides",
+              "payload": 'GUIDES'
+            },
+            {
+              "content_type":"text",
+              "title":"Services",
+              "payload": 'SERVICES'
+            },
+            {
+              "content_type":"text",
+              "title":"About Me",
+              "payload": 'ABOUT'
+            }
+          ]
+        }  
     }
     // Talk to Jason Branch
     else if (payload === 'TALK') {
@@ -180,12 +180,12 @@ function handlePostback(sender_psid, received_postback) {
         {
           "content_type":"text",
           "title":"Browse our website",
-          "payload": "WEBSITE"
+          "payload": 'WEBSITE'
         },
         {
           "content_type":"text",
           "title":"Talk to Jason",
-          "payload": "TALK"
+          "payload": 'TALK'
         }
       ]
     }
