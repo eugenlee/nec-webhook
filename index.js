@@ -196,11 +196,6 @@ function handleMessage(sender_psid, received_message) {
             },
             {
               "type":"web_url",
-              "url":"https://www.facebook.com/jtsao58",
-              "title":"FB"
-            },
-            {
-              "type":"web_url",
               "url":"https://www.instagram.com/jasontsao/",
               "title":"IG"
             },
