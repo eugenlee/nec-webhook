@@ -87,40 +87,39 @@ function handleMessage(sender_psid, received_message) {
   var payload = received_message.quick_reply.payload;
   // Check if the message contains text
 
-  if (payload) {
-    // FIRST BRANCH: website tabs
-    if (payload === 'WEBSITE') {
-      response = {
-        "text": "Which site would you like to view?",
-        "quick_replies":[
-          {
-            "content_type":"text",
-            "title":"Travels",
-            "payload": 'TRAVELS'
-          },
-          {
-            "content_type":"text",
-            "title":"Guides",
-            "payload": 'GUIDES'
-          },
-          {
-            "content_type":"text",
-            "title":"Services",
-            "payload": 'SERVICES'
-          },
-          {
-            "content_type":"text",
-            "title":"About Me",
-            "payload": 'ABOUT'
-          }
-        ]
-      }  
-    }
-    // talk to jason 
-    else if (payload === 'TALK') {
-      response = { "text": "Jason will be with you shortly!" }
-    }
+  // FIRST BRANCH: website tabs
+  if (payload === 'WEBSITE') {
+    response = {
+      "text": "Which site would you like to view?",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Travels",
+          "payload": 'TRAVELS'
+        },
+        {
+          "content_type":"text",
+          "title":"Guides",
+          "payload": 'GUIDES'
+        },
+        {
+          "content_type":"text",
+          "title":"Services",
+          "payload": 'SERVICES'
+        },
+        {
+          "content_type":"text",
+          "title":"About Me",
+          "payload": 'ABOUT'
+        }
+      ]
+    }  
   }
+  // talk to jason 
+  else if (payload === 'TALK') {
+    response = { "text": "Jason will be with you shortly!" }
+  }
+
   // SECOND BRANCH: travels
   else if (payload === 'TRAVELS') {
     response = {
