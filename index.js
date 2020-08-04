@@ -83,166 +83,169 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
   let response;
+  var payload;
 
-  // var payload = received_message.quick_reply.payload;
+  if (received_message.quick_reply.payload) {
+    payload = received_message.quick_reply.payload;
+  }
 
-  // // FIRST BRANCH: website tabs
-  // if (payload === 'WEBSITE') {
-  //   response = {
-  //     "text": "Which site would you like to view?",
-  //     "quick_replies":[
-  //       {
-  //         "content_type":"text",
-  //         "title":"Travels",
-  //         "payload": 'TRAVELS'
-  //       },
-  //       {
-  //         "content_type":"text",
-  //         "title":"Guides",
-  //         "payload": 'GUIDES'
-  //       },
-  //       {
-  //         "content_type":"text",
-  //         "title":"Services",
-  //         "payload": 'SERVICES'
-  //       },
-  //       {
-  //         "content_type":"text",
-  //         "title":"About Me",
-  //         "payload": 'ABOUT'
-  //       }
-  //     ]
-  //   }  
-  // }
-  // // talk to jason 
-  // else if (payload === 'TALK') {
-  //   response = { "text": "Jason will be with you shortly!" }
-  // }
-  // // SECOND BRANCH: travels
-  // else if (paid === 'TRAVELS') {
-  //   response = {
-  //     "attachment":{
-  //       "type":"template",
-  //       "payload":{
-  //         "template_type":"button",
-  //         "text":"Check out my recent travels!",
-  //         "buttons":[
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.neverendingcycle.org/travels.html",
-  //             "title":"Travels"
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
-  // }
-  // // guides
-  // else if (payload === 'GUIDES') {
-  //   response = {
-  //     "attachment":{
-  //       "type":"template",
-  //       "payload":{
-  //         "template_type":"button",
-  //         "text":"Check out my guides!",
-  //         "buttons":[
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.neverendingcycle.org/guides.html",
-  //             "title":"Guides"
-  //           }, 
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.neverendingcycle.org/",
-  //             "title":"Coming Soon!"
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
-  // }
-  // // services
-  // else if (payload === 'SERVICES') {
-  //   response = {
-  //     "attachment":{
-  //       "type":"template",
-  //       "payload":{
-  //         "template_type":"button",
-  //         "text":"Let me plan your next trip!",
-  //         "buttons":[
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.neverendingcycle.org/travel-consultant.html",
-  //             "title":"Travel Consultant"
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
-  // }  // about me
-  // else if (payload === 'ABOUT') {
-  //   response = {
-  //     "attachment":{
-  //       "type":"template",
-  //       "payload":{
-  //         "template_type":"button",
-  //         "text":"My story!",
-  //         "buttons":[
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.neverendingcycle.org/about-me.html",
-  //             "title":"About me"
-  //           },
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.instagram.com/jasontsao/",
-  //             "title":"IG"
-  //           },
-  //           {
-  //             "type":"web_url",
-  //             "url":"https://www.linkedin.com/in/jasontsao58/",
-  //             "title":"LinkedIn"
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
-  // }
-  if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
+  // FIRST BRANCH: website tabs
+  if (payload === 'WEBSITE') {
     response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
-    }
-  } else if (received_message.attachments) {
-    // Get the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
+      "text": "Which site would you like to view?",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Travels",
+          "payload": 'TRAVELS'
+        },
+        {
+          "content_type":"text",
+          "title":"Guides",
+          "payload": 'GUIDES'
+        },
+        {
+          "content_type":"text",
+          "title":"Services",
+          "payload": 'SERVICES'
+        },
+        {
+          "content_type":"text",
+          "title":"About Me",
+          "payload": 'ABOUT'
+        }
+      ]
+    }  
+  }
+  // talk to jason 
+  else if (payload === 'TALK') {
+    response = { "text": "Jason will be with you shortly!" }
+  }
+  // SECOND BRANCH: travels
+  else if (paid === 'TRAVELS') {
     response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Check out my recent travels!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/travels.html",
+              "title":"Travels"
+            }
+          ]
         }
       }
     }
-  } 
+  }
+  // guides
+  else if (payload === 'GUIDES') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Check out my guides!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/guides.html",
+              "title":"Guides"
+            }, 
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/",
+              "title":"Coming Soon!"
+            }
+          ]
+        }
+      }
+    }
+  }
+  // services
+  else if (payload === 'SERVICES') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Let me plan your next trip!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/travel-consultant.html",
+              "title":"Travel Consultant"
+            }
+          ]
+        }
+      }
+    }
+  }  // about me
+  else if (payload === 'ABOUT') {
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"My story!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/about-me.html",
+              "title":"About me"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.instagram.com/jasontsao/",
+              "title":"IG"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.linkedin.com/in/jasontsao58/",
+              "title":"LinkedIn"
+            }
+          ]
+        }
+      }
+    }
+  }
+  // if (received_message.text) {    
+  //   // Create the payload for a basic text message, which
+  //   // will be added to the body of our request to the Send API
+  //   response = {
+  //     "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+  //   }
+  // } else if (received_message.attachments) {
+  //   // Get the URL of the message attachment
+  //   let attachment_url = received_message.attachments[0].payload.url;
+  //   response = {
+  //     "attachment": {
+  //       "type": "template",
+  //       "payload": {
+  //         "template_type": "generic",
+  //         "elements": [{
+  //           "title": "Is this the right picture?",
+  //           "subtitle": "Tap a button to answer.",
+  //           "image_url": attachment_url,
+  //           "buttons": [
+  //             {
+  //               "type": "postback",
+  //               "title": "Yes!",
+  //               "payload": "yes",
+  //             },
+  //             {
+  //               "type": "postback",
+  //               "title": "No!",
+  //               "payload": "no",
+  //             }
+  //           ],
+  //         }]
+  //       }
+  //     }
+  //   }
+  // } 
   else {
     response = { "text": "Jason will be with you shortly!" }
 
@@ -257,35 +260,37 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
 
   let response;
+  var payload;
 
-  // Get the payload for the postback
-  let payload = received_postback.payload;
+  if (received_message.quick_reply.payload) {
+    payload = received_message.quick_reply.payload;
+  }
 
   // Set the response based on the postback payload
-  // // Greetings
-  // if (payload === 'GREETING') {
-  //   const message = "Hello, hope you are having a good day! How can I help you today?";
-  //   response = {
-  //     "text": message,
-  //     "quick_replies":[
-  //       {
-  //         "content_type":"text",
-  //         "title":"Browse the website",
-  //         "payload": 'WEBSITE'
-  //       },
-  //       {
-  //         "content_type":"text",
-  //         "title":"Talk to Jason",
-  //         "payload": 'TALK'
-  //       }
-  //     ]
-  //   }
-  // }
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+  // Greetings
+  if (payload === 'GREETING') {
+    const message = "Hello, hope you are having a good day! How can I help you today?";
+    response = {
+      "text": message,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Browse the website",
+          "payload": 'WEBSITE'
+        },
+        {
+          "content_type":"text",
+          "title":"Talk to Jason",
+          "payload": 'TALK'
+        }
+      ]
+    }
   }
+  // if (payload === 'yes') {
+  //   response = { "text": "Thanks!" }
+  // } else if (payload === 'no') {
+  //   response = { "text": "Oops, try sending another image." }
+  // }
 
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
