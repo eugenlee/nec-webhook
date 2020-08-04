@@ -260,11 +260,7 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
 
   let response;
-  var payload;
-
-  if (received_postback.quick_reply) {
-    payload = received_message.quick_reply.payload;
-  }
+  var payload = received_postback.payload;
 
   // Set the response based on the postback payload
   // Greetings
