@@ -154,7 +154,7 @@ function handleMessage(sender_psid, received_message) {
             }, 
             {
               "type":"web_url",
-              "url":"",
+              "url":"https://www.neverendingcycle.org/",
               "title":"Coming Soon!"
             }
           ]
@@ -208,11 +208,15 @@ function handleMessage(sender_psid, received_message) {
               "type":"web_url",
               "url":"https://www.linkedin.com/in/jasontsao58/",
               "title":"LinkedIn"
-            },
+            }
           ]
         }
       }
     }
+  }
+  else {
+    response = { "text": "Jason will be with you shortly!" }
+
   }
 
   // Sends the response message
@@ -237,7 +241,7 @@ function handlePostback(sender_psid, received_postback) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Browse our website",
+          "title":"Browse the website",
           "payload": 'WEBSITE'
         },
         {
