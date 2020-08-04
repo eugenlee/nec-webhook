@@ -122,7 +122,7 @@ function handleMessage(sender_psid, received_message) {
     response = { "text": "Jason will be with you shortly!" }
   }
   // SECOND BRANCH: travels
-  else if (paid === 'TRAVELS') {
+  else if (payload === 'TRAVELS') {
     response = {
       "attachment":{
         "type":"template",
