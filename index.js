@@ -84,9 +84,10 @@ function handleMessage(sender_psid, received_message) {
 
   let response;
 
+  var payload = received_message.quick_reply.payload;
   // Check if the message contains text
-  if (received_message.quick_reply.payload) {
-    const payload = message.quick_reply.payload;
+
+  if (payload) {
       // First branch with website tabs
       if (payload === 'WEBSITE') {
         response = {
