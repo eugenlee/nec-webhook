@@ -131,7 +131,6 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
 
   let response;
-      const message = greeting + "Would you like to join a community of like-minded pandas in your area?";
 
   // Get the payload for the postback
   let payload = received_postback.payload;
@@ -140,7 +139,7 @@ function handlePostback(sender_psid, received_postback) {
   if (payload === 'GREETING') {
     const message = "Hello, hope you are having a good day! How can I help you today?";
     response = {
-      "text": [message],
+      "text": message,
       "quick_replies":[
         {
           "content_type":"text",
