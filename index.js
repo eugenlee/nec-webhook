@@ -82,12 +82,11 @@ app.get('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
 
-  let response;
-
-  response = { "text": "Jason will be with you shortly!" }
+  let response = { "text": "Jason will be with you shortly!" };
+  var payload; 
 
   if (received_message.quick_reply.payload) {
-    var payload = received_message.quick_reply.payload;
+    payload = received_message.quick_reply.payload;
   }
   // Check if the message contains text
 
