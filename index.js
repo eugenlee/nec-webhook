@@ -119,30 +119,39 @@ function handleMessage(sender_psid, received_message) {
   else if (payload === 'TALK') {
     response = { "text": "Jason will be with you shortly!" }
   }
-
   // SECOND BRANCH: travels
-  if (payload === 'TRAVELS') {
+  else if (payload === 'TRAVELS') {
     response = {
       "type": "web_url",
       "url": "https://www.neverendingcycle.org/travels.html",
-      "title": "Check out my recent Travels!"
+      "title": "Check out my recent Travels!",
+      "webview_height_ratio": "full"
     }
   }
   // guides
   else if (payload === 'GUIDES') {
     response = {
-      
+      "type": "web_url",
+      "url": "https://www.neverendingcycle.org/guides.html",
+      "title": "Check out my Guides!",
+      "webview_height_ratio": "full"
     }
   }
   // services
   else if (payload === 'SERVICES') {
     response = {
-      
+      "type": "web_url",
+      "url": "https://www.neverendingcycle.org/travel-consultant.html",
+      "title": "Check out my Services!",
+      "webview_height_ratio": "full"
     }
   }  // about me
   else if (payload === 'ABOUT') {
     response = {
-      
+      "type": "web_url",
+      "url": "https://www.neverendingcycle.org/about-me.html",
+      "title": "About Me",
+      "webview_height_ratio": "full"
     }
   }
 
