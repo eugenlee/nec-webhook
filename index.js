@@ -136,6 +136,7 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
+  // Greetings
   if (payload === 'GREETING') {
     const message = "Hello, hope you are having a good day! How can I help you today?";
     response = {
@@ -143,8 +144,8 @@ function handlePostback(sender_psid, received_postback) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Browse website",
-          "payload": "GUIDES"
+          "title":"Browse our website",
+          "payload": "WEBSITE"
         },
         {
           "content_type":"text",
@@ -158,6 +159,38 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Thanks!" }
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
+  }
+  // First branch with website tabs
+  else if (payload === 'WEBSITE') {
+    response = {
+      "text": "Which site would you like to view?",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Travels",
+          "payload": "TRAVELS"
+        },
+        {
+          "content_type":"text",
+          "title":"Guides",
+          "payload": "GUIDES"
+        },
+        {
+          "content_type":"text",
+          "title":"Services",
+          "payload": "SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"About Me",
+          "payload": "ABOUT"
+        }
+      ]
+    }  
+  }
+  // Talk to Jason Branch
+  else if (payload === 'TALK') {
+    response = { "text": "Jason will be with you shortly!" }
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
