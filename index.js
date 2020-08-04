@@ -140,12 +140,12 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   switch (payload){
-    case GREETING:
+    case 'GREETING':
       handleGreetingPostback(sender_psid);
       break;
-    case START_WEBSITE_GUIDE:
+    case 'START_WEBSITE_GUIDE':
       break;
-    case START_TALK_JASON:
+    case 'START_TALK_JASON':
     default:
       console.log('Cannot differentiate the payload type');
   }
