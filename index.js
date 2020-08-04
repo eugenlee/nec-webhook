@@ -131,10 +131,20 @@ function handleMessage(sender_psid, received_message) {
   // guides
   else if (payload === 'GUIDES') {
     response = {
-      "type": "web_url",
-      "url": "https://www.neverendingcycle.org/guides.html",
-      "title": "Check out my Guides!",
-      "webview_height_ratio": "full"
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Check out my Guides!",
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.neverendingcycle.org/guides.html",
+              "title":"Guides"
+            }
+          ]
+        }
+      }
     }
   }
   // services
